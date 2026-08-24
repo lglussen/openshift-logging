@@ -1,0 +1,10 @@
+resources:
+  - OpenShiftLogging/namespace.yaml
+  - OpenShiftLogging/service-account.yaml
+  - OpenShiftLogging/clusterLogForwarder.yaml
+
+  - Loki/lokiStack.yaml
+  - Loki/cluster-wide-log-access.yaml
+  - Loki/secret.yaml
+
+  - ClusterObservability/UIPlugin.yaml

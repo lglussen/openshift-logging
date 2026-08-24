@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-logging
+  labels:
+    #  allow OpenShift to scrape metrics from your logging stack.
+    openshift.io/cluster-monitoring: true

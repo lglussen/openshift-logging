@@ -1,0 +1,29 @@
+apiVersion: loki.grafana.com/v1
+kind: LokiStack
+metadata:
+  name: lokistack
+  namespace: openshift-logging
+spec:
+  # https://docs.redhat.com/en/documentation/openshift_container_platform/4.10/html/logging/cluster-logging-loki#loki-deployment-sizing_cluster-logging-loki
+  size: 1x.small
+  storage:
+    # the current desired schema can be back dated to have it immediatly apply
+    schemas:
+      - effectiveDate: '2020-10-11'
+        version: v13
+    # secret containing the connection details for the object storrage where the logs will persist
+    # for setting up object storage see: https://access.redhat.com/articles/7006275
+    secret:
+      name: loki-s3
+      type: s3
+
+    # the cluster certificates are automatically added to each namespace, we just need to reference them here
+    tls:
+      caName: openshift-service-ca.crt
+
+  # The storage class used for PVs on the collector pods: this is not for log-storage (that would be the Object Storage)
+  storageClassName: CHANGEME
+
+  # 
+  tenants:
+    mode: openshift-logging

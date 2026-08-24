@@ -1,0 +1,28 @@
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: allow-read-logs
+  namespace: namespace-a
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-logging-application-view
+subjects:
+- kind: User
+  apiGroup: rbac.authorization.k8s.io
+  name: testuser
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: allow-read-logs
+  namespace: namespace-b
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-logging-application-view
+subjects:
+- kind: User
+  apiGroup: rbac.authorization.k8s.io
+  name: testuser
