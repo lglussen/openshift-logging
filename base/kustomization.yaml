@@ -1,10 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+
 resources:
   - OpenShiftLogging/namespace.yaml
   - OpenShiftLogging/service-account.yaml
   - OpenShiftLogging/clusterLogForwarder.yaml
-
   - Loki/lokiStack.yaml
   - Loki/cluster-wide-log-access.yaml
   - Loki/secret.yaml
-
   - ClusterObservability/UIPlugin.yaml
+
+# This change can be directly applied to Loki/lokiStack.yaml but is called out
+# here as a patch to call attention to the fact that it NEEDS to be changed to 
+# something valid
+patches:
+- target:
+    kind: LokiStack
+    name: lokistack
+  patch: |-
+    - op: replace
+      path: /spec/storageClassName
+      value: "___________________CHANGEME_STORAGE_CLASS________________"
+
