@@ -1,0 +1,21 @@
+apiVersion: observability.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: logforwarder
+  namespace: openshift-logging
+spec:
+  inputs:
+    - name: vmlogs
+      type: receiver
+      receiver:
+        type: syslog
+        port: 10514
+  pipelines:
+    - name: forward-all
+      inputRefs:
+        - vmlogs
+        - application
+        - infrastructure
+        - audit
+      outputRefs:
+        - lokistack 
