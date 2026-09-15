@@ -9,8 +9,6 @@ patches:
     kind: LokiStack
     name: lokistack
   patch: |-
-    # The storage-class and deploymnet size should probably be set in the base
-    # config as they are probably the same for all or most of your environemnts
     - op: replace
       path: /spec/storageClassName
       value: ocs-external-storagecluster-ceph-rbd

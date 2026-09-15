@@ -40,6 +40,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: loki-object-stroage
+  namespace: openshift-logging
 stringData:
   access_key_id: "${ACCESS_KEY_ID}"
   access_key_secret: ${SECRET_ACCESS_KEY}"
