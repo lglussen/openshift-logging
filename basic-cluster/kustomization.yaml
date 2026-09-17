@@ -4,15 +4,22 @@ resources:
   - ../base
   - loki-object-storage.yaml  # TODO: create this secret
 
+# Patches to deploy against my single node demo cluster.
+# Pay attention to what is being modified here and tune it to your situation 
 patches:
 - target:
     kind: LokiStack
     name: lokistack
   patch: |-
+    # demo cluster has a default storage class of ocs-external-storagecluster-ceph-rbd.
     - op: replace
       path: /spec/storageClassName
       value: ocs-external-storagecluster-ceph-rbd
+    # demo cluster is a single node, using a mimimal size of 1x.demo
     - op: replace
       path: /spec/size
       value: 1x.demo
+    # demo cluser does not have infrasturcure nodes, removing node affinity rules
+    - op: remove
+      path: /spec/template
 
